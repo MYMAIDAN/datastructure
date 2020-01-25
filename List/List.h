@@ -29,10 +29,25 @@ private:
 
 public:
 
+  class iterator
+  {
+  public:
+    iterator();
+    operator->();
+
+
+  private:
+     Node* data{ nullptr };
+
+  };
+
+
+public:
+
   List() = default;
   List( std::initializer_list<Type> init );
-  List( const List& obj );
-  //List( List&& obj );
+  List( const List& other );
+  List( List&& other );
   //void operator=( const List& obj );
   //void operator=( List&& obj );
   //~List();

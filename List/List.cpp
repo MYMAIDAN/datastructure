@@ -74,6 +74,17 @@ List<Type>::List( const List& other )
 }
 
 template <class Type>
+List<Type>::List( List&& other )
+{
+    this->first  = other.first;
+    this->last   = other.last;
+    this->length = other.length;
+    other.first = nullptr;
+    other.last  = nullptr;
+    other.length = 0;
+}
+
+template <class Type>
 void List<Type>::push_back( Type value )
 {
   if( first == nullptr )

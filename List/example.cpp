@@ -12,6 +12,10 @@ int main()
   List<int> list2 = list;
 
   list2.push_front(545);
-    list2.print();
+    //list2.print();
+
+  List<int> list3(std::move(list2));
+  list3.print();
+
   return 0;
 }
