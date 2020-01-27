@@ -21,6 +21,124 @@ List<Type>::List( std::initializer_list<Type> init )
 template <class Type>
 List<Type>::List( const List& other )
 {
+  copy( other );
+}
+
+template <class Type>
+List<Type>::List( List&& other )
+{
+  move( std::forward<List>(other) );
+}
+
+template <class Type>
+List<Type>& List<Type>::operator=( const List& other )
+{
+  if( this != &other )
+  {
+    copy( other );
+  }
+  return *this;
+}
+
+template <class Type>
+List<Type>& List<Type>::operator=( List&& other )
+{
+  if( this != &other )
+  {
+    move( std::forward<List>( other ) );
+  }
+  return *this;
+}
+
+template<class Type>
+List<Type>::~List()
+{
+
+}
+
+template<class Type>
+void List<Type>::push_back( const Type& value )
+{
+  if( first == nullptr )
+  {
+    first = new Node( value, nullptr, nullptr );
+    last = first;
+  }
+  else
+  {
+    last->next = new Node( value, nullptr, last );
+    last = last->next;
+  }
+  length++;
+
+}
+
+template<class Type>
+void List<Type>::push_front( const Type& value )
+{
+  if( first == nullptr )
+  {
+    first = new Node( value, nullptr, nullptr );
+    last = first;
+  }
+  else
+  {
+    first->previous = new Node( value, first, nullptr );
+    first = first->previous;
+  }
+  length++;
+}
+
+template<class Type>
+template<class... Args>
+void List<Type>::emplace_back( Args&&... args )
+{
+  if( first == nullptr )
+  {
+    first = new Node( std::forward<Args>( args )..., nullptr, nullptr );
+    last = first;
+  }
+  else
+  {
+    last->next = new Node( std::forward<Args>( args )... , nullptr, last );
+    last = last->next;
+  }
+  length++;
+} 
+
+template<class Type>
+template<class... Args>
+void List<Type>::emplace_front( Args&&... args )
+{
+  if( first == nullptr )
+  {
+    first = new Node( std::forward<Args>( args )..., nullptr, nullptr );
+    last = first;
+  }
+  else
+  {
+    last->next = new Node( std::forward<Args>( args )..., nullptr, last );
+    last = last->next;
+  }
+  length++;
+}
+
+
+template<class Type>
+void List<Type>::print() const
+{
+  Node* temp = first;
+  while( temp != nullptr )
+  {
+    std::cout << "Node:" << temp->data << std::endl;
+    temp = temp->next;
+  }
+}
+
+
+template<class Type>
+void List<Type>::copy( const List& other )
+{
   Node* otherTemp = other.first;
   Node* thisTemp = nullptr;
 
@@ -74,57 +192,12 @@ List<Type>::List( const List& other )
 }
 
 template <class Type>
-List<Type>::List( List&& other )
+void List<Type>::move( List&& other )
 {
-    this->first  = other.first;
-    this->last   = other.last;
-    this->length = other.length;
-    other.first = nullptr;
-    other.last  = nullptr;
-    other.length = 0;
-}
-
-template <class Type>
-void List<Type>::push_back( Type value )
-{
-  if( first == nullptr )
-  {
-    first = new Node( value, nullptr, nullptr );
-    last = first;
-  }
-  else
-  {
-    last->next = new Node( value, nullptr, last );
-    last = last->next;
-  }
-  length++;
-
-}
-
-template <class Type>
-void List<Type>::push_front( Type value )
-{
-  if( first == nullptr )
-  {
-    first = new Node( value, nullptr, nullptr );
-    last = first;
-  }
-  else
-  {
-    first->previous = new Node( value, first, nullptr );
-    first = first->previous;
-  }
-  length++;
-}
-
-
-template <class Type>
-void List<Type>::print() const
-{
-  Node* temp = first;
-  while( temp != nullptr )
-  {
-    std::cout << "Node:" << temp->data << std::endl;
-    temp = temp->next;
-  }
+  this->first   = other.first;
+  this->last    = other.last;
+  this->length  = other.length;
+  other.first   = nullptr;
+  other.last    = nullptr;
+  other.length  = 0;
 }

@@ -14,10 +14,16 @@ private:
     Type  data;
     Node* next;
     Node* previous;
-    Node( Type tData, Node* tNext, Node* tPrevious ):
+    Node( const Type& tData, Node* tNext, Node* tPrevious ):
       data    ( tData     ),
       next    ( tNext     ),
       previous( tPrevious )
+    {}    
+    template<class... Args>
+    Node( Args&&... args, Node* tNext, Node* tPrevious ) :
+    data    ( std::forward<Args>( args )... ),
+    next    ( tNext ),
+    previous( tPrevious )
     {}
 
     ~Node() = default;
@@ -28,32 +34,24 @@ private:
   uint32_t length{ 0 };
 
 public:
-
-  class iterator
-  {
-  public:
-    iterator();
-    operator->();
-
-
-  private:
-     Node* data{ nullptr };
-
-  };
-
-
-public:
-
   List() = default;
   List( std::initializer_list<Type> init );
   List( const List& other );
   List( List&& other );
-  //void operator=( const List& obj );
-  //void operator=( List&& obj );
-  //~List();
-  void push_back( Type value );
-  void push_front( Type value );
+  List<Type>& operator=( const List& obj );
+  List<Type>& operator=( List&& obj );
+  ~List();
+  void push_back( const Type& value );
+  void push_front( const Type& value );
+  template<class ... Args >
+  void emplace_back( Args&&... args );
+  template<class... Args>
+  void emplace_front( Args&&... args );
   void print() const;
+
+private:
+  void copy( const List& other );
+  void move( List && other );
 };
 
 
