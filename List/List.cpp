@@ -1,4 +1,4 @@
-
+#include <limits>
 
 template <class Type>
 List<Type>::List( std::initializer_list<Type> init )
@@ -52,11 +52,20 @@ List<Type>& List<Type>::operator=( List&& other )
 
 template<class Type>
 List<Type>::~List()
-{
+{ 
+
+  Node* temp{ nullptr };
+  while( first->next != nullptr )
+  {
+    temp = first->next;;
+    delete first;
+    first = temp;
+  
+  }
 
 }
 
-template<class Type>
+/*template<class Type>
 void List<Type>::push_back( const Type& value )
 {
   if( first == nullptr )
@@ -71,6 +80,38 @@ void List<Type>::push_back( const Type& value )
   }
   length++;
 
+}*/
+
+template<class Type>
+template<class ParamType>
+void List<Type>::push_back( ParamType&& value )
+{
+  if( first == nullptr )
+  {
+    first = new Node( std::forward<ParamType>( value ), nullptr, nullptr );
+    last = first;
+  }
+  else
+  {
+    last->next = new Node( std::forward<ParamType>( value ), nullptr, last );
+    last = last->next;
+  }
+}
+
+template<class Type>
+void List<Type>::push_front( Type&& value )
+{
+  if( first == nullptr )
+  {
+    first = new Node( value, nullptr, nullptr );
+    last = first;
+  }
+  else
+  {
+    first->previous = new Node( value, first, nullptr );
+    first = first->previous;
+  }
+  length++;
 }
 
 template<class Type>
@@ -104,7 +145,7 @@ void List<Type>::emplace_back( Args&&... args )
     last = last->next;
   }
   length++;
-} 
+}
 
 template<class Type>
 template<class... Args>
@@ -135,6 +176,59 @@ void List<Type>::print() const
   }
 }
 
+template< class Type >
+bool List< Type >::empty() const
+{
+  return (first == nullptr) && (length == 0);
+}
+
+template< class Type >
+size_t List< Type >::size() const noexcept
+{
+  return length;
+}
+
+template< class Type >
+size_t List< Type >::max_size() const noexcept
+{
+  std::numeric_limits< Type >::max();
+}
+
+template< class Type >
+Type& List< Type >::front()
+{
+  return *first;
+}
+
+template< class Type >
+const Type& List< Type >::front() const
+{
+  return *first;
+}
+
+template< class Type >
+Type& List< Type >::back()
+{
+  return *last;
+}
+
+template< class Type >
+const Type& List< Type >::back() const
+{
+  return *last;
+}
+
+template<class Type>
+typename List<Type>::iterator List<Type>::begin()
+{
+  return iterator( this->first );
+}
+
+template<class Type>
+typename List<Type>::iterator List<Type>::end()
+{
+  return iterator( this->last->next);
+}
 
 template<class Type>
 void List<Type>::copy( const List& other )
@@ -180,7 +274,7 @@ void List<Type>::copy( const List& other )
     if( this->length < other.length )
     {
       this->last     = thisTemp;
-      Node* del = thisTemp;
+      Node* del      = thisTemp;
       while( del != nullptr )
       {
         thisTemp = thisTemp->next;
@@ -201,3 +295,59 @@ void List<Type>::move( List&& other )
   other.last    = nullptr;
   other.length  = 0;
 }
+
+template<class Type>
+List<Type>::iterator::iterator( List<Type>::Node* pointer ):
+  ptr( pointer )
+  {
+  }
+
+template<class Type>
+typename List<Type>::iterator List<Type>::iterator::operator++()
+{
+  iterator it( *this );
+  ptr = ptr->next;
+  return it;
+}
+template<class Type>
+typename List<Type>::iterator List<Type>::iterator::operator++(int)
+{
+  ptr = ptr->next;
+  return *this;
+}
+
+template<class Type>
+typename List<Type>::iterator List<Type>::iterator::operator--()
+{
+  iterator it{ *this};
+  ptr = ptr->previous;
+  return it;
+}
+
+template<class Type>
+typename List<Type>::iterator List<Type>::iterator ::operator--(int)
+{
+  ptr = ptr->previous;
+  return *this;
+}
+
+template<class Type>
+Type& List<Type>::iterator::operator*()
+{
+  return ptr->data;
+}
+
+template<class Type>
+Type* List<Type>::iterator::operator->()
+{
+  return &ptr->data;
+}
+
+template<class Type>
+bool List<Type>::iterator::operator!=( const List<Type>::iterator& other )
+{
+  return ptr != other.ptr;
+}
+
+
+

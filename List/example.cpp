@@ -1,4 +1,10 @@
 #include "List.h"
+#include <fstream>
+#include <iostream>
+#include <algorithm>
+#include <iterator>
+#include <vector>
+#include <list>
 
 class Test
 {
@@ -20,7 +26,7 @@ class Test
   }
 
   Test& operator=(const Test& other )
-  { 
+  {
     std::cout << "Copy operator" << std::endl;
   }
 
@@ -38,9 +44,23 @@ class Test
 
 int main()
 {
+  List<int> list2;
+  list2.push_back(3);
+  list2.push_back(54);
+  list2.push_back(45);
+  list2.push_back(43);
+
   List<Test> list;
+  Test t;
+
   list.push_back(Test());
-  list.emplace_back();
-  list.emplace_front();
+  list.push_back(Test());
+
+  for( auto it = list2.begin(); it != list2.end(); it++)
+  {
+    std::cout<< *it << std::endl;
+  }
+
+
   return 0;
 }
