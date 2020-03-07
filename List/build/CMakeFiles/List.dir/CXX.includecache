@@ -1,0 +1,38 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/pi/datastructure/List/List.cpp
+limits
+-
+
+/home/pi/datastructure/List/List.h
+iostream
+-
+initializer_list
+-
+type_traits
+-
+List.cpp
+/home/pi/datastructure/List/List.cpp
+
+/home/pi/datastructure/List/example.cpp
+List.h
+/home/pi/datastructure/List/List.h
+fstream
+-
+iostream
+-
+algorithm
+-
+iterator
+-
+vector
+-
+list
+-
+

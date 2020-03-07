@@ -3,3 +3,8 @@ project(List VERSION 0.1.0)
 add_executable(List List.h example.cpp)
 
 set_target_properties(List PROPERTIES LINKER_LANGUAGE CXX)
+
+include(tests/googletest.cmake)
+
+enable_testing()
+add_subdirectory(tests)

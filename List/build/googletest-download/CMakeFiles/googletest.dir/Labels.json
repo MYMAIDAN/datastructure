@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/pi/datastructure/List/build/googletest-download/CMakeFiles/googletest"
+		},
+		{
+			"file" : "/home/pi/datastructure/List/build/googletest-download/CMakeFiles/googletest.rule"
+		},
+		{
+			"file" : "/home/pi/datastructure/List/build/googletest-download/CMakeFiles/googletest-complete.rule"
+		},
+		{
+			"file" : "/home/pi/datastructure/List/build/googletest-download/googletest-prefix/src/googletest-stamp/googletest-install.rule"
+		},
+		{
+			"file" : "/home/pi/datastructure/List/build/googletest-download/googletest-prefix/src/googletest-stamp/googletest-mkdir.rule"
+		},
+		{
+			"file" : "/home/pi/datastructure/List/build/googletest-download/googletest-prefix/src/googletest-stamp/googletest-download.rule"
+		},
+		{
+			"file" : "/home/pi/datastructure/List/build/googletest-download/googletest-prefix/src/googletest-stamp/googletest-update.rule"
+		},
+		{
+			"file" : "/home/pi/datastructure/List/build/googletest-download/googletest-prefix/src/googletest-stamp/googletest-patch.rule"
+		},
+		{
+			"file" : "/home/pi/datastructure/List/build/googletest-download/googletest-prefix/src/googletest-stamp/googletest-configure.rule"
+		},
+		{
+			"file" : "/home/pi/datastructure/List/build/googletest-download/googletest-prefix/src/googletest-stamp/googletest-build.rule"
+		},
+		{
+			"file" : "/home/pi/datastructure/List/build/googletest-download/googletest-prefix/src/googletest-stamp/googletest-test.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"googletest"
+		],
+		"name" : "googletest"
+	}
+}

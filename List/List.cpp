@@ -54,14 +54,18 @@ template<class Type>
 List<Type>::~List()
 { 
 
-  Node* temp{ nullptr };
-  while( first->next != nullptr )
+  if( first != nullptr )
   {
-    temp = first->next;;
-    delete first;
-    first = temp;
-  
+    Node* temp{ nullptr };
+    while( first->next != nullptr )
+    {
+      temp = first->next;;
+      delete first;
+      first = temp;
+    }
+
   }
+
 
 }
 

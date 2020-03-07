@@ -56,9 +56,9 @@ int main()
   list.push_back(Test());
   list.push_back(Test());
 
-  for( auto it = list2.begin(); it != list2.end(); it++)
+  for( auto it: list2)
   {
-    std::cout<< *it << std::endl;
+    std::cout<< it << std::endl;
   }
 
 
